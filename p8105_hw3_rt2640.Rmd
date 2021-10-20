@@ -22,10 +22,24 @@ The instacart dataset contains 1348617 observations and 15 variables. The datafr
 
 ```{r}
 instacart_df = instacart %>%
-  group_by(aisle) %>%
+  select(order_id:add_to_cart_order,aisle_id:department) %>% 
+  group_by(aisle_id , aisle) %>%
   summarise(total = n()) %>%
   arrange(-total)
 ```
-There are 134 aisles in total and most items are ordered from the fresh vegetables aisle (n= 150609) followed by the fresh fruits aisle (n =150473) )
+There are 134 aisles in total and most items are ordered from the fresh vegetables aisle 83 (n= 150609) followed by the fresh fruits aisle 24 (n =150473).
+
+#### Problem 1 Part 2
+
+```{r}
+dept = instacart_df %>%
+  filter(total > 10000) %>%
+  arrange(-total)
+
+dept %>%
+  ggplot(aes(x = total, y = aisle)) +
+  geom_point()
+
+```
 
 
