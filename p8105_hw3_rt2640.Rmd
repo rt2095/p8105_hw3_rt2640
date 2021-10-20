@@ -46,24 +46,24 @@ dept %>%
 
 ```{r}
 baking = instacart %>%
-  group_by (aisle_id, aisle,product_name) %>%
+  group_by(aisle_id, aisle,product_name) %>%
   filter(aisle == "baking ingredients") %>%
-  summarise (total = n() ) %>%
-  arrange (-total) %>%
+  summarise(total = n() ) %>%
+  arrange(-total) %>%
   head(3)
 
 dog_food = instacart %>%
-  group_by (aisle_id, aisle,product_name) %>%
+  group_by(aisle_id, aisle,product_name) %>%
   filter(aisle == "dog food care") %>%
-  summarise (total = n() ) %>%
-  arrange (-total) %>%
+  summarise(total = n() ) %>%
+  arrange(-total) %>%
   head(3)
 
 pack_veg_fruits = instacart %>%
-  group_by (aisle_id, aisle,product_name) %>%
+  group_by(aisle_id, aisle,product_name) %>%
   filter(aisle == "packaged vegetables fruits") %>%
-  summarise (total = n() ) %>%
-  arrange (-total) %>%
+  summarise(total = n() ) %>%
+  arrange(-total) %>%
   head(3)
 
 c1_table = bind_rows(baking, dog_food, pack_veg_fruits) %>%
@@ -72,7 +72,34 @@ c1_table = bind_rows(baking, dog_food, pack_veg_fruits) %>%
   as_tibble() %>% 
   knitr::kable()
 c1_table
+
 ```
+
+#### Problem 1 Part 4
+
+```{r}
+pla_table = instacart %>%
+  group_by(product_name , order_dow) %>%
+  filter(product_name == "Pink Lady Apples" | product_name == "Coffee Ice Cream") %>%
+  summarize(
+    mean_hod = mean(order_hour_of_day)) %>%
+  pivot_wider(
+    names_from = order_dow,
+    values_from = mean_hod
+  ) %>%
+  rename(
+    Monday = "0",
+    Tuesday = "1",
+    Wednesday = "2",
+    Thursday = "3",
+    Friday = "4",
+    Saturday = "5",
+    Sunday = "6",
+    Product = "product_name") %>%
+  knitr::kable(digit = 2)
+pla_table
+```
+  
 
 
 
