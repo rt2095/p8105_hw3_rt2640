@@ -42,4 +42,38 @@ dept %>%
 
 ```
 
+#### Problem 1 Part 3
+
+```{r}
+baking = instacart %>%
+  group_by (aisle_id, aisle,product_name) %>%
+  filter(aisle == "baking ingredients") %>%
+  summarise (total = n() ) %>%
+  arrange (-total) %>%
+  head(3)
+
+dog_food = instacart %>%
+  group_by (aisle_id, aisle,product_name) %>%
+  filter(aisle == "dog food care") %>%
+  summarise (total = n() ) %>%
+  arrange (-total) %>%
+  head(3)
+
+pack_veg_fruits = instacart %>%
+  group_by (aisle_id, aisle,product_name) %>%
+  filter(aisle == "packaged vegetables fruits") %>%
+  summarise (total = n() ) %>%
+  arrange (-total) %>%
+  head(3)
+
+c1_table = bind_rows(baking, dog_food, pack_veg_fruits) %>%
+  janitor::clean_names() %>%
+  arrange(-total) %>% 
+  as_tibble() %>% 
+  knitr::kable()
+c1_table
+```
+
+
+
 
