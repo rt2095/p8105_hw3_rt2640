@@ -5,16 +5,13 @@ output: github_document
 
 ```{r loading libraries}
 library(tidyverse)
+library(p8105.datasets)
+data("instacart")
+data("brfss_smart2010")
 
 ```
 
 ### Problem 1
-
-```{r loading the dataset}
-library(p8105.datasets)
-data("instacart")
-
-```
 
 The instacart dataset contains 1348617 observations and 15 variables. The dataframe provides a description of the orders on instacart including the items ordered, a description of their aisles and respective departments, along with a description of the user, the time of the order, days since the last order, and items reordered.
 
@@ -48,21 +45,21 @@ dept %>%
 baking = instacart %>%
   group_by(aisle_id, aisle,product_name) %>%
   filter(aisle == "baking ingredients") %>%
-  summarise(total = n() ) %>%
+  summarise(total = n()) %>%
   arrange(-total) %>%
   head(3)
 
 dog_food = instacart %>%
   group_by(aisle_id, aisle,product_name) %>%
   filter(aisle == "dog food care") %>%
-  summarise(total = n() ) %>%
+  summarise(total = n()) %>%
   arrange(-total) %>%
   head(3)
 
 pack_veg_fruits = instacart %>%
   group_by(aisle_id, aisle,product_name) %>%
   filter(aisle == "packaged vegetables fruits") %>%
-  summarise(total = n() ) %>%
+  summarise(total = n()) %>%
   arrange(-total) %>%
   head(3)
 
@@ -99,7 +96,22 @@ pla_table = instacart %>%
   knitr::kable(digit = 2)
 pla_table
 ```
+
+### Problem 2
+
+#### Problem 2 Part 1
+
+```{r}
+brfss_tidy = brfss_smart2010 %>%
+  janitor::clean_names() %>%
+  rename(state = locationabbr, location = locationdesc) %>%
+  filter(topic == "Overall Health") %>%
+  mutate(
+    response = factor(response, levels = c("Poor","Fair","Good","Very good","Excellent" )))
+```
   
+
+
 
 
 
