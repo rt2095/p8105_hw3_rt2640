@@ -3,3 +3,29 @@ title: "p8105_hw3_rt2640"
 output: github_document
 ---
 
+```{r loading libraries}
+library(tidyverse)
+
+```
+
+### Problem 1
+
+```{r loading the dataset}
+library(p8105.datasets)
+data("instacart")
+
+```
+
+The instacart dataset contains 1348617 observations and 15 variables. The dataframe provides a description of the orders on instacart including the items ordered, a description of their aisles and respective departments, along with a description of the user, the time of the order, days since the last order, and items reordered.
+
+#### Problem 1 Part 1
+
+```{r}
+instacart_df = instacart %>%
+  group_by(aisle) %>%
+  summarise(total = n()) %>%
+  arrange(-total)
+```
+There are 134 aisles in total and most items are ordered from the fresh vegetables aisle (n= 150609) followed by the fresh fruits aisle (n =150473) )
+
+
