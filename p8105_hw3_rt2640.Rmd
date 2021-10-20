@@ -77,7 +77,8 @@ c1_table
 ```{r}
 pla_table = instacart %>%
   group_by(product_name , order_dow) %>%
-  filter(product_name == "Pink Lady Apples" | product_name == "Coffee Ice Cream") %>%
+  filter(product_name == "Pink Lady Apples" | 
+           product_name == "Coffee Ice Cream") %>%
   summarize(
     mean_hod = mean(order_hour_of_day)) %>%
   pivot_wider(
@@ -107,9 +108,30 @@ brfss_tidy = brfss_smart2010 %>%
   rename(state = locationabbr, location = locationdesc) %>%
   filter(topic == "Overall Health") %>%
   mutate(
-    response = factor(response, levels = c("Poor","Fair","Good","Very good","Excellent" )))
+    response = factor(response, levels = c("Poor","Fair","Good","Very good",
+                                           "Excellent" )))
 ```
+
+#### Problem 2 Part 2
+
+```{r}
+
+brfss_2002 = brfss_tidy %>%
+  filter(year == "2002") %>%
+  group_by(state) %>%
+  summarise(observed = n()/5) %>%
+  filter(observed >= 7)
   
+
+brfss_2010 = brfss_tidy %>%
+  filter(year == "2010") %>%
+  group_by(state) %>%
+  summarise(observed = n()/5) %>%
+  filter(observed >= 7)  
+```
+
+CT, FL, MA, NC, NJ, and PA are the states with 7 or more observation sites in 2002.
+CA, CO, FL, MA, MD, NC, NE, NJ, NY, OH, PA, SC, TX, WA are the states with 7 or more observation sites in 2010.
 
 
 
