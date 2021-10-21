@@ -213,6 +213,18 @@ accel_df = accel %>%
 The dataset contains 6 variables and 50400 observations. The variables included are the week, day of the week, whether it is a weekday or a weekend and activity counts per minute of everyday.
 
 
+#### Problem 3 Part 2
+
+```{r}
+activity_day = accel_df %>%
+  separate(activity_num, into = c("activity", "minute"), sep = "_") %>%
+  group_by(day_id,day_of_the_week,week, weekday_vs_weekend) %>%
+  summarize(
+    total_activity = sum(activity_count)) %>%
+  knitr::kable(digits = 4)
+
+activity_day
+  
 
            
   
