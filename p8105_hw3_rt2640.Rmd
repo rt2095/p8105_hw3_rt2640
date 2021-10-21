@@ -15,8 +15,6 @@ knitr::opts_chunk$set(
   out.width = "90%"
 )
 
-theme_set(theme_minimal() + theme(legend.position = "bottom"))
-
 options(
   ggplot2.continuous.colour = "viridis",
   ggplot2.continuous.fill = "viridis"
@@ -224,6 +222,32 @@ activity_day = accel_df %>%
   knitr::kable(digits = 4)
 
 activity_day
+```
+
+The subject under observation overall has higher activity during the weekdays compared to the weekends on average across 5 weeks. He also has significantly lower total activity on Saturday of Week 4 and Week 5.
+
+#### Problem 3 Part 3
+
+```{r}
+
+by_day = accel_df %>%
+  separate(activity_num, into = c("activity", "minute"), sep = "_") %>%
+  mutate(minute = as.numeric(minute)) %>%
+  group_by(day_id,day_of_the_week,week, weekday_vs_weekend)
+
+by_day %>%
+  ggplot(aes(x = minute, y = activity_count , color = day_of_the_week)) +
+  geom_point() +
+  geom_line(alpha = .3) +
+  theme(legend.position = "bottom") +
+  viridis::scale_fill_viridis(discrete = TRUE)
+```
+
+The subject under observation has an overall lower activity on tuesdays across all 5 weeks of observation. The average activity between 0-400 minutes (night time) is lower across all days. The activity trend on Fridays is on average higher during the evening hours.
+
+  
+
+
   
 
            
