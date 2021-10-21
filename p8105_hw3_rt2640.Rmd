@@ -9,12 +9,6 @@ library(p8105.datasets)
 data("instacart")
 data("brfss_smart2010")
 
-knitr::opts_chunk$set(
-  fig.width = 6,
-  fig.asp = .6,
-  out.width = "90%"
-)
-
 options(
   ggplot2.continuous.colour = "viridis",
   ggplot2.continuous.fill = "viridis"
@@ -22,7 +16,6 @@ options(
 
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
-
 ```
 
 ### Problem 1
