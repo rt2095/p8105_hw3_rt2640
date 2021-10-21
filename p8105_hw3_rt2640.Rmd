@@ -167,10 +167,12 @@ excel_df %>%
   theme(legend.position = "none")
 ```
 
+#### Problem 2 Part 2c
+
 ```{r}
 
 nys_df = brfss_tidy %>%
-  filter (state == "NY", year == "2006" | year == "2010") %>%
+  filter(state == "NY", year == "2006" | year == "2010") %>%
   group_by(response, year)
 
 nys_df %>%
@@ -181,8 +183,42 @@ nys_df %>%
     x = "Response",
     y = "Number of Responses",
     title = "Survey data in NYS State")
+```
+  
+### Problem 3
+
+#### Problem 3 Part 1 
+
+```{r loading the dataset}
+accel = read.csv(file = "./accel_data.csv")
+
+accel_df = accel %>%
+  janitor::clean_names() %>%
+  mutate(
+    weekday_vs_weekend = case_when(
+      day == "Monday" ~ "Weekday",
+      day == "Tuesday" ~ "Weekday",
+      day == "Wednesday" ~ "Weekday",
+      day == "Thursday" ~ "Weekday",
+      day == "Friday" ~ "Weekday",
+      day == "Saturday" ~ "Weekend",
+      day == "Sunday" ~ "Weekend")) %>%
+  rename(day_of_the_week = "day") %>%
+  pivot_longer(
+    activity_1:activity_1440,
+    names_to = "activity_num",
+    values_to = "activity_count")
+```
+
+The dataset contains 6 variables and 50400 observations. The variables included are the week, day of the week, whether it is a weekday or a weekend and activity counts per minute of everyday.
+
+
+
+           
   
   
+
+
   
 
   
